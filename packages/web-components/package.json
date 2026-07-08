@@ -1,0 +1,42 @@
+{
+  "name": "@wend-ui/web-components",
+  "version": "0.1.0",
+  "description": "Framework-agnostic web components for the wend-ui design system, built with Stencil",
+  "license": "MIT",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.js",
+  "es2015": "dist/esm/index.js",
+  "es2017": "dist/esm/index.js",
+  "types": "dist/types/index.d.ts",
+  "collection": "dist/collection/collection-manifest.json",
+  "collection:main": "dist/collection/index.js",
+  "unpkg": "dist/wend-ui-web-components/wend-ui-web-components.esm.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs.js"
+    },
+    "./loader": {
+      "import": "./loader/index.js",
+      "require": "./loader/index.cjs",
+      "types": "./loader/index.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "loader"
+  ],
+  "scripts": {
+    "build": "stencil build",
+    "start": "stencil build --dev --watch --serve",
+    "clean": "rimraf dist www loader .stencil"
+  },
+  "dependencies": {
+    "@wend-ui/styles": "^0.1.0",
+    "@wend-ui/tokens": "^0.1.0"
+  },
+  "devDependencies": {
+    "@stencil/core": "^4.20.0",
+    "rimraf": "^5.0.5"
+  }
+}
