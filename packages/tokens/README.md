@@ -17,6 +17,7 @@ Outputs to `build/`:
 - `build/css/variables.css` — CSS custom properties on `:root`
 - `build/scss/_variables.scss` — Sass variables
 - `build/js/tokens.js` — CommonJS module exporting the token tree
+- `build/figma/tokens.json` — flat `{ name, type, value }` list consumed by [`@wend-ui/figma-plugin`](../figma-plugin) to sync tokens into Figma Variables
 
 ## Usage
 

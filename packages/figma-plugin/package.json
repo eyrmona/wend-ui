@@ -1,0 +1,17 @@
+{
+  "name": "@wend-ui/figma-plugin",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Figma plugin that syncs @wend-ui/tokens into Figma Variables",
+  "license": "MIT",
+  "scripts": {
+    "build": "node esbuild.config.mjs",
+    "clean": "rimraf dist"
+  },
+  "devDependencies": {
+    "@figma/plugin-typings": "^1.130.0",
+    "esbuild": "^0.23.0",
+    "rimraf": "^5.0.5",
+    "typescript": "^5.5.4"
+  }
+}

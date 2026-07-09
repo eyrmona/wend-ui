@@ -9,8 +9,9 @@ Agnostic design system, organized as an npm workspaces monorepo.
 | [`packages/tokens`](packages/tokens) | Design tokens (`@wend-ui/tokens`), authored as JSON and built with Style Dictionary into CSS, SCSS, and JS. |
 | [`packages/styles`](packages/styles) | Base CSS (`@wend-ui/styles`) — reset and layout utilities built on top of the tokens. |
 | [`packages/web-components`](packages/web-components) | Framework-agnostic web components (`@wend-ui/web-components`), built with [Stencil](https://stenciljs.com/). |
+| [`packages/figma-plugin`](packages/figma-plugin) | Figma plugin (`@wend-ui/figma-plugin`) that syncs the tokens into Figma Variables. |
 
-Dependency order: `tokens` → `styles` → `web-components`.
+Dependency order: `tokens` → `styles` → `web-components`. `figma-plugin` consumes the tokens' Figma-flat JSON output but builds independently.
 
 ## Getting started
 

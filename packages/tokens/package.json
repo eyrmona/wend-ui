@@ -7,7 +7,8 @@
   "exports": {
     "./css": "./build/css/variables.css",
     "./js": "./build/js/tokens.js",
-    "./scss": "./build/scss/_variables.scss"
+    "./scss": "./build/scss/_variables.scss",
+    "./figma": "./build/figma/tokens.json"
   },
   "files": [
     "build"
