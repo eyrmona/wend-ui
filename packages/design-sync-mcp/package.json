@@ -1,0 +1,22 @@
+{
+  "name": "@wend-ui/design-sync-mcp",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "MCP server exposing wend-ui's design tokens and component metadata, and diffing them against Figma state",
+  "license": "MIT",
+  "scripts": {
+    "build": "node esbuild.config.mjs",
+    "clean": "rimraf dist"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "zod": "^3.25.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "esbuild": "^0.23.0",
+    "rimraf": "^5.0.5",
+    "typescript": "^5.5.4"
+  }
+}

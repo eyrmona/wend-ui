@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "wend-ui-design-sync": {
+      "command": "node",
+      "args": ["packages/design-sync-mcp/dist/server.js"]
+    }
+  }
+}

@@ -149,4 +149,4 @@ packages/web-components/dist
 packages/web-components/www
 packages/web-components/loader
 packages/web-components/.stencil
-packages/figma-plugin/dist
+packages/design-sync-mcp/dist

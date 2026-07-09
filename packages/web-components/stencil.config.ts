@@ -15,6 +15,10 @@ export const config: Config = {
       type: 'docs-readme'
     },
     {
+      type: 'docs-json',
+      file: 'dist/docs.json'
+    },
+    {
       type: 'www',
       serviceWorker: null
     }
