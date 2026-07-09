@@ -1,0 +1,23 @@
+{
+  "name": "@wend-ui/tokens",
+  "version": "0.1.0",
+  "description": "Design tokens for the wend-ui design system, built with Style Dictionary",
+  "license": "MIT",
+  "main": "build/js/tokens.js",
+  "exports": {
+    "./css": "./build/css/variables.css",
+    "./js": "./build/js/tokens.js",
+    "./scss": "./build/scss/_variables.scss"
+  },
+  "files": [
+    "build"
+  ],
+  "scripts": {
+    "build": "style-dictionary build --config style-dictionary.config.js",
+    "clean": "rimraf build"
+  },
+  "devDependencies": {
+    "rimraf": "^5.0.5",
+    "style-dictionary": "^4.0.1"
+  }
+}

@@ -1,0 +1,12 @@
+.wend-container {
+  padding: var(--spacing-md);
+}
+
+.wend-stack > * + * {
+  margin-top: var(--spacing-sm);
+}
+
+.wend-surface {
+  background-color: var(--color-neutral-100);
+  border-radius: var(--radius-md);
+}

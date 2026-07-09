@@ -1,0 +1,21 @@
+{
+  "color": {
+    "brand": {
+      "primary": { "value": "#3366FF" },
+      "primary-hover": { "value": "#254EDB" },
+      "secondary": { "value": "#6B46C1" }
+    },
+    "neutral": {
+      "0": { "value": "#FFFFFF" },
+      "100": { "value": "#F5F5F7" },
+      "300": { "value": "#D0D0D6" },
+      "700": { "value": "#4A4A57" },
+      "900": { "value": "#16161D" }
+    },
+    "feedback": {
+      "success": { "value": "#1E8E5A" },
+      "warning": { "value": "#B36B00" },
+      "danger": { "value": "#C0392B" }
+    }
+  }
+}

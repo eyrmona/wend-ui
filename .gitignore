@@ -141,3 +141,11 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .vite/
+
+# wend-ui package build output
+packages/tokens/build
+packages/styles/dist
+packages/web-components/dist
+packages/web-components/www
+packages/web-components/loader
+packages/web-components/.stencil

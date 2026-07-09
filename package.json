@@ -1,0 +1,19 @@
+{
+  "name": "wend-ui",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Agnostic design system monorepo — design tokens, styles, and web components",
+  "license": "MIT",
+  "workspaces": [
+    "packages/*"
+  ],
+  "engines": {
+    "node": ">=18",
+    "npm": ">=8"
+  },
+  "scripts": {
+    "build": "npm run build -w packages/tokens && npm run build -w packages/styles && npm run build -w packages/web-components",
+    "clean": "npm run clean --workspaces --if-present",
+    "dev:components": "npm run start -w packages/web-components"
+  }
+}

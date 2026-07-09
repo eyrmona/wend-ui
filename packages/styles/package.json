@@ -1,0 +1,29 @@
+{
+  "name": "@wend-ui/styles",
+  "version": "0.1.0",
+  "description": "Base CSS for the wend-ui design system, built from @wend-ui/tokens",
+  "license": "MIT",
+  "main": "dist/index.css",
+  "style": "dist/index.css",
+  "exports": {
+    ".": "./dist/index.css"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "postcss src/index.css -o dist/index.css",
+    "clean": "rimraf dist"
+  },
+  "dependencies": {
+    "@wend-ui/tokens": "^0.1.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.19",
+    "cssnano": "^7.0.1",
+    "postcss": "^8.4.38",
+    "postcss-cli": "^11.0.0",
+    "postcss-import": "^16.1.0",
+    "rimraf": "^5.0.5"
+  }
+}
