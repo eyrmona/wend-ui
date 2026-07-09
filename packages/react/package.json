@@ -1,0 +1,40 @@
+{
+  "name": "@wend-ui/react",
+  "version": "0.1.0",
+  "description": "React component wrappers for @wend-ui/web-components, generated via Stencil's React output target",
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "node esbuild.config.mjs && tsc --emitDeclarationOnly",
+    "clean": "rimraf dist"
+  },
+  "peerDependencies": {
+    "react": "^18 || ^19",
+    "react-dom": "^18 || ^19"
+  },
+  "dependencies": {
+    "@stencil/react-output-target": "^1.6.0",
+    "@wend-ui/web-components": "^0.1.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "esbuild": "^0.23.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "rimraf": "^5.0.5",
+    "typescript": "^5.5.4"
+  }
+}

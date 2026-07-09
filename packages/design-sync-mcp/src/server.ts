@@ -20,7 +20,7 @@ server.registerTool(
     description:
       'Returns the wend-ui design tokens as a flat list of { name, type, value }, always freshly rebuilt from packages/tokens/tokens/*.json if the source has changed since the last build.'
   },
-  async () => jsonResult(loadTokens())
+  () => jsonResult(loadTokens())
 );
 
 server.registerTool(
@@ -41,7 +41,7 @@ server.registerTool(
         .describe("Figma's current variables, normalized to wend-ui's flat token shape")
     }
   },
-  async ({ figmaVariables }) => jsonResult(diffTokens(figmaVariables))
+  ({ figmaVariables }) => jsonResult(diffTokens(figmaVariables))
 );
 
 server.registerTool(
@@ -51,7 +51,7 @@ server.registerTool(
     description:
       "Returns wend-ui's web components (tag, description, props, slots) from packages/web-components' generated docs. Requires `npm run build -w packages/web-components` to have been run at least once. There is no automated push to Figma for components — use this for grounding when building or updating matching Figma components by hand."
   },
-  async () => jsonResult(listComponents())
+  () => jsonResult(listComponents())
 );
 
 server.registerTool(
@@ -71,10 +71,12 @@ server.registerTool(
             defaultValue: z.union([z.string(), z.boolean()]).optional()
           })
         )
-        .describe("The Figma component's componentPropertyDefinitions, normalized to {name, type, variantOptions?, defaultValue?}")
+        .describe(
+          "The Figma component's componentPropertyDefinitions, normalized to {name, type, variantOptions?, defaultValue?}"
+        )
     }
   },
-  async ({ tag, figmaProperties }) => jsonResult(diffComponent(tag, figmaProperties))
+  ({ tag, figmaProperties }) => jsonResult(diffComponent(tag, figmaProperties))
 );
 
 const transport = new StdioServerTransport();

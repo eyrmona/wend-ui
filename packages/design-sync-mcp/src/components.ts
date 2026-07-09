@@ -28,12 +28,17 @@ export function listComponents(): ComponentSummary[] {
     );
   }
 
-  const docs: StencilDocsJson = JSON.parse(readFileSync(componentsDocsFile, 'utf8'));
+  const docs = JSON.parse(readFileSync(componentsDocsFile, 'utf8')) as StencilDocsJson;
 
   return docs.components.map((component) => ({
     tag: component.tag,
     description: component.docs,
-    props: component.props.map(({ name, type, default: defaultValue, docs }) => ({ name, type, default: defaultValue, docs })),
+    props: component.props.map(({ name, type, default: defaultValue, docs }) => ({
+      name,
+      type,
+      default: defaultValue,
+      docs
+    })),
     slots: component.slots.map(({ name, docs }) => ({ name: name || '(default)', docs }))
   }));
 }
@@ -79,7 +84,7 @@ function parseUnionLiteral(type: string): string[] | null {
     const match = part.match(/^"([^"]*)"$/) ?? part.match(/^'([^']*)'$/);
     return match ? match[1] : null;
   });
-  return literals.every((literal) => literal !== null) ? (literals as string[]) : null;
+  return literals.every((literal) => literal !== null) ? literals : null;
 }
 
 /**
@@ -97,7 +102,13 @@ export function diffComponent(tag: string, figmaProperties: FigmaComponentProper
 
   const codeEntities = new Map<string, NamedEntity>();
   for (const prop of component.props) {
-    codeEntities.set(normalizeName(prop.name), { kind: 'prop', name: prop.name, type: prop.type, default: prop.default, docs: prop.docs });
+    codeEntities.set(normalizeName(prop.name), {
+      kind: 'prop',
+      name: prop.name,
+      type: prop.type,
+      default: prop.default,
+      docs: prop.docs
+    });
   }
   for (const slot of component.slots) {
     codeEntities.set(normalizeName(slot.name), { kind: 'slot', name: slot.name, docs: slot.docs });
@@ -109,7 +120,9 @@ export function diffComponent(tag: string, figmaProperties: FigmaComponentProper
   }
 
   const onlyInCode = [...codeEntities.entries()].filter(([key]) => !figmaEntities.has(key)).map(([, entity]) => entity);
-  const onlyInFigma = [...figmaEntities.entries()].filter(([key]) => !codeEntities.has(key)).map(([, entity]) => entity);
+  const onlyInFigma = [...figmaEntities.entries()]
+    .filter(([key]) => !codeEntities.has(key))
+    .map(([, entity]) => entity);
 
   const matched = [...codeEntities.entries()]
     .filter(([key]) => figmaEntities.has(key))
@@ -129,7 +142,9 @@ export function diffComponent(tag: string, figmaProperties: FigmaComponentProper
               figmaOptions,
               optionsMatch:
                 codeOptions.length === figmaOptions.length &&
-                codeOptions.every((option) => figmaOptions.some((figmaOption) => figmaOption.toLowerCase() === option.toLowerCase()))
+                codeOptions.every((option) =>
+                  figmaOptions.some((figmaOption) => figmaOption.toLowerCase() === option.toLowerCase())
+                )
             }
           : {})
       };

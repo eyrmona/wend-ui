@@ -36,7 +36,7 @@ export function loadTokens(): FlatToken[] {
     });
   }
 
-  return JSON.parse(readFileSync(tokensBuildFile, 'utf8'));
+  return JSON.parse(readFileSync(tokensBuildFile, 'utf8')) as FlatToken[];
 }
 
 export interface TokenDiff {

@@ -1,4 +1,5 @@
 import { Config } from '@stencil/core';
+import { reactOutputTarget } from '@stencil/react-output-target';
 
 export const config: Config = {
   namespace: 'wend-ui-web-components',
@@ -9,8 +10,13 @@ export const config: Config = {
       esmLoaderPath: '../loader'
     },
     {
-      type: 'dist-custom-elements'
+      type: 'dist-custom-elements',
+      externalRuntime: false
     },
+    reactOutputTarget({
+      outDir: '../react/src/',
+      esModules: true
+    }),
     {
       type: 'docs-readme'
     },

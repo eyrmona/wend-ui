@@ -12,6 +12,7 @@
     "jsxFactory": "h",
     "declaration": true,
     "experimentalDecorators": true,
+    "rootDir": "src",
     "outDir": "dist",
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true

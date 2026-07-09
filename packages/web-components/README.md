@@ -16,7 +16,7 @@ Starts the Stencil dev server against `src/index.html`, rebuilding on change.
 npm run build -w packages/web-components
 ```
 
-Outputs a `dist` custom elements bundle, an ESM/CJS loader, and generated component docs.
+Outputs a `dist` custom elements bundle, an ESM/CJS loader, generated component docs, and (via `reactOutputTarget` in `stencil.config.ts`) regenerates the React wrappers in [`packages/react`](../react).
 
 ## Components
 

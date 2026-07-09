@@ -20,6 +20,14 @@
       "import": "./loader/index.js",
       "require": "./loader/index.cjs",
       "types": "./loader/index.d.ts"
+    },
+    "./dist/components": {
+      "types": "./dist/types/components.d.ts",
+      "import": "./dist/components/index.js"
+    },
+    "./dist/components/*": {
+      "types": "./dist/components/*",
+      "import": "./dist/components/*"
     }
   },
   "files": [
@@ -37,6 +45,7 @@
   },
   "devDependencies": {
     "@stencil/core": "^4.20.0",
+    "@stencil/react-output-target": "^1.6.0",
     "rimraf": "^5.0.5"
   }
 }
