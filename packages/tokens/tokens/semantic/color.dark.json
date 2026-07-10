@@ -1,28 +1,24 @@
 {
   "color": {
     "text": {
-      "primary": { "value": "{color.gray.50}" },
-      "secondary": { "value": "{color.gray.300}" },
-      "on-secondary": { "value": "{color.purple.400}" }
+      "primary": { "value": "{color.linen.500}" },
+      "secondary": { "value": "{color.mist.500}" },
+      "on-primary": { "value": "{color.midnight.500}" },
+      "on-secondary": { "value": "{color.midnight.500}" }
     },
     "surface": {
-      "canvas": { "value": "{color.gray.950}" },
-      "canvas-recessed": { "value": "{color.gray.800}" },
-      "card": { "value": "{color.gray.900}" },
-      "card-recessed": { "value": "{color.gray.950}" }
+      "canvas": { "value": "{color.midnight.500}" },
+      "canvas-recessed": { "value": "{color.indigo.500}" },
+      "card": { "value": "{color.indigo.500}" },
+      "card-recessed": { "value": "{color.midnight.500}" }
     },
     "border": {
-      "default": { "value": "{color.gray.700}" }
+      "default": { "value": "{color.indigo.500}" }
     },
     "action": {
-      "primary": { "value": "{color.blue.400}" },
-      "primary-hover": { "value": "{color.blue.500}" },
-      "secondary": { "value": "{color.purple.400}" }
-    },
-    "feedback": {
-      "success": { "value": "{color.green.500}" },
-      "warning": { "value": "{color.amber.500}" },
-      "danger": { "value": "{color.red.500}" }
+      "primary": { "value": "{color.citron.500}" },
+      "primary-hover": { "value": "{color.lilac.500}" },
+      "secondary": { "value": "{color.lilac.500}" }
     }
   }
 }

@@ -7,6 +7,33 @@
     <link rel="stylesheet" href="/build/wend-ui-web-components.css" />
     <script type="module" src="/build/wend-ui-web-components.esm.js"></script>
     <script nomodule src="/build/wend-ui-web-components.js"></script>
+    <style>
+      .wend-ramp-grid {
+        display: grid;
+        grid-template-columns: 90px repeat(11, 1fr);
+        gap: 4px;
+        align-items: center;
+        max-width: 720px;
+        margin-bottom: 4px;
+      }
+      .wend-ramp-step-label,
+      .wend-ramp-name-label {
+        font-size: 12px;
+        color: var(--color-text-secondary);
+        text-align: center;
+      }
+      .wend-ramp-name-label {
+        text-align: left;
+      }
+      .wend-ramp-swatch {
+        height: 32px;
+        border-radius: var(--radius-sm);
+        border: 1px solid var(--color-border-default);
+      }
+      .wend-ramp-swatch--base {
+        border: 2px solid var(--color-text-primary);
+      }
+    </style>
   </head>
   <body>
     <div class="wend-container wend-stack">
@@ -40,5 +67,46 @@
         Recessed well on the page itself (color-surface-canvas-recessed)
       </div>
     </div>
+
+    <div class="wend-container">
+      <p style="margin: 0 0 var(--spacing-sm)">Color ramps (global/color.json)</p>
+      <div class="wend-ramp-grid">
+        <span></span>
+        <span class="wend-ramp-step-label">50</span>
+        <span class="wend-ramp-step-label">100</span>
+        <span class="wend-ramp-step-label">200</span>
+        <span class="wend-ramp-step-label">300</span>
+        <span class="wend-ramp-step-label">400</span>
+        <span class="wend-ramp-step-label">500</span>
+        <span class="wend-ramp-step-label">600</span>
+        <span class="wend-ramp-step-label">700</span>
+        <span class="wend-ramp-step-label">800</span>
+        <span class="wend-ramp-step-label">900</span>
+        <span class="wend-ramp-step-label">950</span>
+      </div>
+      <div id="ramp-rows"></div>
+    </div>
+
+    <script>
+      const ramps = ['linen', 'mist', 'citron', 'lilac', 'indigo', 'midnight'];
+      const steps = ['50', '100', '200', '300', '400', '500', '600', '700', '800', '900', '950'];
+      const rows = document.getElementById('ramp-rows');
+      for (const name of ramps) {
+        const row = document.createElement('div');
+        row.className = 'wend-ramp-grid';
+        const label = document.createElement('span');
+        label.textContent = name;
+        label.className = 'wend-ramp-name-label';
+        row.appendChild(label);
+        for (const step of steps) {
+          const swatch = document.createElement('div');
+          swatch.className = 'wend-ramp-swatch';
+          swatch.style.backgroundColor = `var(--color-${name}-${step})`;
+          if (step === '500') swatch.classList.add('wend-ramp-swatch--base');
+          row.appendChild(swatch);
+        }
+        rows.appendChild(row);
+      }
+    </script>
   </body>
 </html>

@@ -15,7 +15,7 @@
     "build"
   ],
   "scripts": {
-    "build": "style-dictionary build --config style-dictionary.config.js && style-dictionary build --config style-dictionary.dark.config.js && node scripts/merge-figma-modes.mjs",
+    "build": "style-dictionary build --config style-dictionary.config.js && style-dictionary build --config style-dictionary.dark.config.js && node scripts/merge-figma-modes.mjs && node scripts/export-figma-dtcg.mjs",
     "clean": "rimraf build"
   },
   "devDependencies": {

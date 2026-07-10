@@ -5,7 +5,8 @@ export type WendButtonVariant = 'primary' | 'secondary';
 @Component({
   tag: 'wend-button',
   styleUrl: 'wend-button.css',
-  shadow: true
+  shadow: false,
+  scoped: true
 })
 export class WendButton {
   /** Visual style of the button. */

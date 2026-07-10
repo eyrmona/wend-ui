@@ -19,6 +19,15 @@ So this server stays intentionally read/diff-only and never talks to Figma itsel
 
 There's no dedicated push tool or plugin — tokens and components are pushed into Figma from within a Claude Code session, using Figma's official Dev Mode MCP server's `use_figma` tool (see the `figma-use`/`figma-generate-library` skills that ship with it). The typical flow: `get_tokens`/`list_components` here for the project's current state, Figma's own MCP read tools for Figma's current state, `diff_tokens`/`diff_component` to see what's actually different, then `use_figma` to apply the change.
 
+### Variable collection structure in Figma
+
+Tokens push into **two** Figma variable collections, not one flat collection — mirroring the project's own token tiers (`packages/tokens/tokens/global/**` and `semantic/**` + `component/**`, the latter folded into "semantic" on the Figma side):
+
+- **`global`** — the primitive scale (`color-gray-*`, `color-blue-*`, `radius-*`, `spacing-*`, `font-*`). Single mode (`Value`) — primitives don't change with theme, so there's no Light/Dark split here.
+- **`semantic`** — everything else: `color-text-*`/`color-surface-*`/`color-border-*`/`color-action-*`/`color-feedback-*` and the component-tier `button-*` tokens. Has **Light** and **Dark** modes. Each variable's value is a `VARIABLE_ALIAS` pointing at the `global` collection (or, for `button-*`, at another `semantic` variable) rather than a resolved literal — matching how the source JSON itself references tokens (e.g. `button.background.primary` → `{color.action.primary}` → `{color.blue.500}`). This means changing a global primitive in Figma propagates to every semantic/component token that references it, the same as the build pipeline.
+
+When reconciling `diff_tokens` output against this structure, resolve each Figma variable's alias chain down to a literal value before comparing — the diff tool works on flat resolved values, and aliasing is purely a Figma-side authoring convenience.
+
 ## Setup
 
 ```sh
