@@ -1,0 +1,33 @@
+:host {
+  display: inline-block;
+}
+
+button {
+  font-family: var(--font-family-base, sans-serif);
+  font-size: var(--button-font-size, 16px);
+  font-weight: var(--button-font-weight, 500);
+  padding: var(--button-padding-block, 8px) var(--button-padding-inline, 16px);
+  border-radius: var(--button-radius, 8px);
+  border: none;
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+button.primary {
+  background-color: var(--button-background-primary, #3366ff);
+  color: var(--button-text-primary, #ffffff);
+}
+
+button.primary:not(:disabled):hover {
+  background-color: var(--button-background-primary-hover, #254edb);
+}
+
+button.secondary {
+  background-color: transparent;
+  color: var(--button-text-secondary, #6b46c1);
+  border: 1px solid var(--button-border-secondary, #6b46c1);
+}

@@ -4,7 +4,7 @@
     "padding-inline": { "value": "{spacing.md}" },
     "radius": { "value": "{radius.md}" },
     "font-size": { "value": "{font.size.md}" },
-    "font-weight": { "value": "{font.weight.medium}" },
+    "font-weight": { "value": "{font.weight.regular}" },
     "background": {
       "primary": { "value": "{color.action.primary}" },
       "primary-hover": { "value": "{color.action.primary-hover}" }

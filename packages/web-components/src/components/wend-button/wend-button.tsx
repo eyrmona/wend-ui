@@ -4,7 +4,7 @@ export type WendButtonVariant = 'primary' | 'secondary';
 
 @Component({
   tag: 'wend-button',
-  styleUrl: 'wend-button.css',
+  styleUrl: '../../../../styles/src/components/wend-button.css',
   shadow: false,
   scoped: true
 })

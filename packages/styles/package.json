@@ -6,13 +6,14 @@
   "main": "dist/index.css",
   "style": "dist/index.css",
   "exports": {
-    ".": "./dist/index.css"
+    ".": "./dist/index.css",
+    "./components/*.css": "./dist/components/*.css"
   },
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "postcss src/index.css -o dist/index.css",
+    "build": "postcss src/index.css -o dist/index.css && postcss \"src/components/*.css\" --dir dist/components",
     "clean": "rimraf dist"
   },
   "dependencies": {
