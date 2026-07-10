@@ -3,16 +3,31 @@ import { readFileSync, readdirSync, statSync, existsSync } from 'node:fs';
 import path from 'node:path';
 import { repoRoot, tokensSourceDir, tokensBuildFile } from './paths.js';
 
+export type TokenValue = string | number | boolean;
+
 export interface FlatToken {
   name: string;
   type: 'COLOR' | 'FLOAT' | 'STRING' | 'BOOLEAN';
-  value: string | number | boolean;
+  values: {
+    light: TokenValue;
+    dark: TokenValue;
+  };
+}
+
+/** Recursively finds every .json file under dir — tokens now live nested under global/semantic/component. */
+function findJsonFiles(dir: string): string[] {
+  return readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
+    const entryPath = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      return findJsonFiles(entryPath);
+    }
+    return entry.name.endsWith('.json') ? [entryPath] : [];
+  });
 }
 
 function latestSourceMtime(): number {
-  return readdirSync(tokensSourceDir)
-    .filter((file) => file.endsWith('.json'))
-    .map((file) => statSync(path.join(tokensSourceDir, file)).mtimeMs)
+  return findJsonFiles(tokensSourceDir)
+    .map((file) => statSync(file).mtimeMs)
     .reduce((latest, mtime) => Math.max(latest, mtime), 0);
 }
 
@@ -26,7 +41,8 @@ function isStale(): boolean {
 /**
  * Always returns tokens fresh from the source JSON — rebuilds packages/tokens
  * first if any source file has changed since the last build, so callers never
- * see a stale snapshot.
+ * see a stale snapshot. Each token carries both light and dark values (equal
+ * to each other for tokens with no dark override).
  */
 export function loadTokens(): FlatToken[] {
   if (isStale()) {
@@ -42,13 +58,16 @@ export function loadTokens(): FlatToken[] {
 export interface TokenDiff {
   onlyInProject: FlatToken[];
   onlyInFigma: FlatToken[];
-  changed: Array<{ name: string; project: FlatToken; figma: FlatToken }>;
+  changed: Array<{ name: string; mode: 'light' | 'dark'; project: TokenValue; figma: TokenValue }>;
 }
 
 /**
  * Compares the project's tokens against a caller-supplied snapshot of Figma's
- * current variables (same { name, type, value } shape — normalize colors to
- * hex and dimensions to plain numbers before calling this).
+ * current variables (same { name, type, values: { light, dark } } shape —
+ * read each variable's value for both the Light and Dark mode IDs in the
+ * collection, normalize colors to hex and dimensions to plain numbers).
+ * Light and dark are diffed independently, so a token that's only wrong in
+ * one mode doesn't get reported as if the whole token were broken.
  */
 export function diffTokens(figmaVariables: FlatToken[]): TokenDiff {
   const projectTokens = loadTokens();
@@ -57,12 +76,21 @@ export function diffTokens(figmaVariables: FlatToken[]): TokenDiff {
 
   const onlyInProject = projectTokens.filter((token) => !figmaByName.has(token.name));
   const onlyInFigma = figmaVariables.filter((token) => !projectByName.has(token.name));
+
   const changed = projectTokens.flatMap((project) => {
     const figma = figmaByName.get(project.name);
-    if (!figma) {
+    if (!figma || figma.type !== project.type) {
       return [];
     }
-    return figma.type !== project.type || figma.value !== project.value ? [{ name: project.name, project, figma }] : [];
+
+    const diffs: TokenDiff['changed'] = [];
+    if (figma.values.light !== project.values.light) {
+      diffs.push({ name: project.name, mode: 'light', project: project.values.light, figma: figma.values.light });
+    }
+    if (figma.values.dark !== project.values.dark) {
+      diffs.push({ name: project.name, mode: 'dark', project: project.values.dark, figma: figma.values.dark });
+    }
+    return diffs;
   });
 
   return { onlyInProject, onlyInFigma, changed };

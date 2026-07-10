@@ -10,8 +10,8 @@ So this server stays intentionally read/diff-only and never talks to Figma itsel
 
 ## Tools
 
-- **`get_tokens`** — the wend-ui design tokens as a flat `{ name, type, value }` list. Rebuilds `packages/tokens` automatically first if the source JSON has changed since the last build, so it never returns a stale snapshot.
-- **`diff_tokens`** — given a snapshot of Figma's current variables (same shape), returns `{ onlyInProject, onlyInFigma, changed }`.
+- **`get_tokens`** — the wend-ui design tokens as a flat `{ name, type, values: { light, dark } }` list — mode-aware, matching Figma's native per-collection modes. Tokens with no dark override just have `light === dark`. Rebuilds `packages/tokens` automatically first if the source JSON has changed since the last build, so it never returns a stale snapshot.
+- **`diff_tokens`** — given a snapshot of Figma's current variables (same shape — read each variable's value for both the Light and Dark mode IDs), returns `{ onlyInProject, onlyInFigma, changed }`. Light and dark are diffed independently: `changed` entries carry a `mode: 'light' | 'dark'` field, so a token that's only wrong in one mode doesn't get reported as if the whole thing were broken.
 - **`list_components`** — the web components' tags, descriptions, props, and slots, read from Stencil's generated `dist/docs.json`. Read-only: component → Figma-component mapping isn't automated, since there's no automatic way to derive Figma variants/auto-layout from a web component's API.
 - **`diff_component`** — given a component tag and a snapshot of its Figma component's `componentPropertyDefinitions`, returns `{ onlyInCode, onlyInFigma, matched }`. Matching is name-based only (case-insensitive) — it won't guess that, say, a code `disabled` prop corresponds to a Figma `State` variant axis; differently-named things just show up as unmatched on both sides so a human/agent judges the mapping instead of the tool silently guessing.
 

@@ -6,6 +6,7 @@
   "main": "build/js/tokens.js",
   "exports": {
     "./css": "./build/css/variables.css",
+    "./css-dark": "./build/css/variables-dark.css",
     "./js": "./build/js/tokens.js",
     "./scss": "./build/scss/_variables.scss",
     "./figma": "./build/figma/tokens.json"
@@ -14,7 +15,7 @@
     "build"
   ],
   "scripts": {
-    "build": "style-dictionary build --config style-dictionary.config.js",
+    "build": "style-dictionary build --config style-dictionary.config.js && style-dictionary build --config style-dictionary.dark.config.js && node scripts/merge-figma-modes.mjs",
     "clean": "rimraf build"
   },
   "devDependencies": {

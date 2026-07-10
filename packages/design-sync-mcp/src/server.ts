@@ -18,7 +18,7 @@ server.registerTool(
   {
     title: 'Get wend-ui design tokens',
     description:
-      'Returns the wend-ui design tokens as a flat list of { name, type, value }, always freshly rebuilt from packages/tokens/tokens/*.json if the source has changed since the last build.'
+      'Returns the wend-ui design tokens as a flat list of { name, type, values: { light, dark } }, always freshly rebuilt from packages/tokens/tokens/**/*.json if the source has changed since the last build. Tokens with no dark-mode override have identical light and dark values.'
   },
   () => jsonResult(loadTokens())
 );
@@ -28,17 +28,20 @@ server.registerTool(
   {
     title: 'Diff wend-ui tokens against Figma variables',
     description:
-      "Compares wend-ui's current tokens against a caller-supplied snapshot of Figma's variables (same { name, type, value } shape — normalize Figma colors to hex and dimensions to plain numbers before calling). Typically the caller fetches Figma's current variables via Figma's own MCP server first. Returns { onlyInProject, onlyInFigma, changed }.",
+      "Compares wend-ui's current tokens against a caller-supplied snapshot of Figma's variables (same { name, type, values: { light, dark } } shape — for each variable, read its value for both the Light and Dark mode IDs in the collection; normalize colors to hex and dimensions to plain numbers). Typically the caller fetches Figma's current variables via Figma's own MCP server first. Light and dark are diffed independently, so a token wrong in only one mode is reported for just that mode. Returns { onlyInProject, onlyInFigma, changed }, where each `changed` entry has a `mode: 'light' | 'dark'` field.",
     inputSchema: {
       figmaVariables: z
         .array(
           z.object({
             name: z.string(),
             type: z.enum(['COLOR', 'FLOAT', 'STRING', 'BOOLEAN']),
-            value: z.union([z.string(), z.number(), z.boolean()])
+            values: z.object({
+              light: z.union([z.string(), z.number(), z.boolean()]),
+              dark: z.union([z.string(), z.number(), z.boolean()])
+            })
           })
         )
-        .describe("Figma's current variables, normalized to wend-ui's flat token shape")
+        .describe("Figma's current variables, normalized to wend-ui's flat token shape with both mode values")
     }
   },
   ({ figmaVariables }) => jsonResult(diffTokens(figmaVariables))

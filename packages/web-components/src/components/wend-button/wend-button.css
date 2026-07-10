@@ -4,10 +4,10 @@
 
 button {
   font-family: var(--font-family-base, sans-serif);
-  font-size: var(--font-size-md, 16px);
-  font-weight: var(--font-weight-medium, 500);
-  padding: var(--spacing-sm, 8px) var(--spacing-md, 16px);
-  border-radius: var(--radius-md, 8px);
+  font-size: var(--button-font-size, 16px);
+  font-weight: var(--button-font-weight, 500);
+  padding: var(--button-padding-block, 8px) var(--button-padding-inline, 16px);
+  border-radius: var(--button-radius, 8px);
   border: none;
   cursor: pointer;
 }
@@ -18,16 +18,16 @@ button:disabled {
 }
 
 button.primary {
-  background-color: var(--color-brand-primary, #3366ff);
-  color: var(--color-neutral-0, #ffffff);
+  background-color: var(--button-background-primary, #3366ff);
+  color: var(--button-text-primary, #ffffff);
 }
 
 button.primary:not(:disabled):hover {
-  background-color: var(--color-brand-primary-hover, #254edb);
+  background-color: var(--button-background-primary-hover, #254edb);
 }
 
 button.secondary {
   background-color: transparent;
-  color: var(--color-brand-secondary, #6b46c1);
-  border: 1px solid var(--color-brand-secondary, #6b46c1);
+  color: var(--button-text-secondary, #6b46c1);
+  border: 1px solid var(--button-border-secondary, #6b46c1);
 }

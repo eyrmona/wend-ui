@@ -1,0 +1,20 @@
+{
+  "button": {
+    "padding-block": { "value": "{spacing.sm}" },
+    "padding-inline": { "value": "{spacing.md}" },
+    "radius": { "value": "{radius.md}" },
+    "font-size": { "value": "{font.size.md}" },
+    "font-weight": { "value": "{font.weight.medium}" },
+    "background": {
+      "primary": { "value": "{color.action.primary}" },
+      "primary-hover": { "value": "{color.action.primary-hover}" }
+    },
+    "text": {
+      "primary": { "value": "{color.text.on-primary}" },
+      "secondary": { "value": "{color.action.secondary}" }
+    },
+    "border": {
+      "secondary": { "value": "{color.action.secondary}" }
+    }
+  }
+}

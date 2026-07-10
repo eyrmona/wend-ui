@@ -1,0 +1,28 @@
+{
+  "color": {
+    "text": {
+      "primary": { "value": "{color.gray.50}" },
+      "secondary": { "value": "{color.gray.300}" },
+      "on-secondary": { "value": "{color.purple.400}" }
+    },
+    "surface": {
+      "canvas": { "value": "{color.gray.950}" },
+      "canvas-recessed": { "value": "{color.gray.800}" },
+      "card": { "value": "{color.gray.900}" },
+      "card-recessed": { "value": "{color.gray.950}" }
+    },
+    "border": {
+      "default": { "value": "{color.gray.700}" }
+    },
+    "action": {
+      "primary": { "value": "{color.blue.400}" },
+      "primary-hover": { "value": "{color.blue.500}" },
+      "secondary": { "value": "{color.purple.400}" }
+    },
+    "feedback": {
+      "success": { "value": "{color.green.500}" },
+      "warning": { "value": "{color.amber.500}" },
+      "danger": { "value": "{color.red.500}" }
+    }
+  }
+}

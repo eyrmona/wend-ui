@@ -14,6 +14,6 @@ body {
   font-family: var(--font-family-base);
   font-size: var(--font-size-md);
   line-height: var(--font-line-height-base);
-  color: var(--color-neutral-900);
-  background-color: var(--color-neutral-0);
+  color: var(--color-text-primary);
+  background-color: var(--color-surface-canvas);
 }
