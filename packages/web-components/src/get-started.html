@@ -1,0 +1,61 @@
+<!doctype html>
+<html dir="ltr" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>wend-ui — Get Started</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Funnel+Sans:wght@300;400;500;600;700;800&display=swap"
+    />
+    <link rel="stylesheet" href="/build/wend-ui-web-components.css" />
+    <link rel="stylesheet" href="/global/docs.css" />
+    <script type="module" src="/build/wend-ui-web-components.esm.js"></script>
+    <script nomodule src="/build/wend-ui-web-components.js"></script>
+  </head>
+  <body>
+    <nav class="wend-nav">
+      <a class="wend-nav__brand" href="index.html">wend-ui</a>
+      <div class="wend-nav__links">
+        <a href="get-started.html" aria-current="page">Get Started</a>
+        <a href="foundations.html">Foundations</a>
+        <a href="components.html">Components</a>
+      </div>
+    </nav>
+
+    <div class="wend-page">
+      <div class="wend-section">
+        <h2>Installation</h2>
+        <p>Install the web components package, plus the base styles package for tokens/reset/utilities:</p>
+        <code class="wend-code">npm install @wend-ui/web-components @wend-ui/styles</code>
+      </div>
+
+      <div class="wend-section">
+        <h2>Basic usage</h2>
+        <p>Load the component loader script and the base stylesheet, then use any wend-ui element directly in HTML:</p>
+        <code class="wend-code"
+          >&lt;link rel="stylesheet" href="node_modules/@wend-ui/styles/dist/index.css" /&gt;<br />
+          &lt;script type="module" src="node_modules/@wend-ui/web-components/loader/index.js"&gt;&lt;/script&gt;<br
+        /><br />
+          &lt;wend-button variant="primary"&gt;Click me&lt;/wend-button&gt;</code
+        >
+      </div>
+
+      <div class="wend-section">
+        <h2>Using with React</h2>
+        <p>
+          A generated set of React wrapper components ships from <code>@wend-ui/react</code>, so components can be
+          used the same way as any other React component, with full prop typing:
+        </p>
+        <code class="wend-code"
+          >import { WendButton } from '@wend-ui/react';<br /><br />
+          function App() {<br />
+          &nbsp;&nbsp;return &lt;WendButton variant="primary"&gt;Click me&lt;/WendButton&gt;;<br />
+          }</code
+        >
+      </div>
+    </div>
+  </body>
+</html>
