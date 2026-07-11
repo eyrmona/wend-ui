@@ -16,8 +16,8 @@
       "default": { "value": "{color.mist.500}" }
     },
     "action": {
-      "primary": { "value": "{color.indigo.500}" },
-      "primary-hover": { "value": "{color.midnight.500}" },
+      "primary": { "value": "{color.midnight.500}" },
+      "primary-hover": { "value": "{color.midnight.400}" },
       "secondary": { "value": "{color.indigo.500}" }
     },
     "feedback": {

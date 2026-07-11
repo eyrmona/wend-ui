@@ -93,12 +93,20 @@ function oklchToHex(L, C, H) {
   return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
 }
 
-// Eases the dark-side (600-950) progression: steps just past 500 move slowly, so 600/700
-// stay close in lightness to 500, and the descent toward 950 backloads toward the end
-// instead of dropping steeply right after the anchor. 1.0 = linear (the original behavior);
-// >1.0 flattens the early dark steps. Endpoints (500 and 950) are unaffected either way --
-// only how quickly the steps between them get there changes.
+// Eases both sides of the ramp away from 500: steps just past the anchor move slowly, so
+// 400/600 stay close in lightness to 500, and the approach toward the 50/950 extremes
+// backloads toward the end instead of most of the climb happening in the first step or
+// two. 1.0 = linear. >1.0 flattens the early steps. Endpoints (50, 950) are unaffected --
+// only how quickly the steps between the anchor and each end get there changes.
+const LIGHT_EASE = 1.6;
 const DARK_EASE = 1.7;
+
+// The lightest step's target L is a proportion of the *remaining* distance from L500 up
+// to white, not a fixed 0.99 for every color. A dark base (e.g. midnight, L500 ~0.11)
+// pulls back further in absolute terms -- its 50 step stops well short of blown-out white
+// -- while an already-light base (e.g. linen, L500 ~0.93) barely changes, since there's
+// little "remaining distance" to scale down in the first place.
+const LIGHT_REACH = 0.85;
 
 function generateScale(baseHex) {
   const [L500, C500, H] = oklabToOklch(linearRgbToOklab(hexToLinearRgb(baseHex)));
@@ -113,9 +121,9 @@ function generateScale(baseHex) {
     const pos = POSITION[step];
     const lighter = pos > pos500;
     const extremePos = lighter ? POSITION[50] : POSITION[950];
-    const extremeL = lighter ? 0.99 : 0.12;
+    const extremeL = lighter ? L500 + (0.99 - L500) * LIGHT_REACH : 0.12;
     const fraction = (pos - pos500) / (extremePos - pos500);
-    const easedFraction = lighter ? fraction : Math.pow(fraction, DARK_EASE);
+    const easedFraction = Math.pow(fraction, lighter ? LIGHT_EASE : DARK_EASE);
     const L = L500 + easedFraction * (extremeL - L500);
     // Taper chroma toward the extremes but keep a floor (15% of C500) so every color's
     // 50/950 step still reads as a tint/shade of that color, not a neutral gray.
@@ -137,9 +145,54 @@ const bases = {
   midnight: '#17184B'
 };
 
+// indigo and midnight are dark enough at 500 that the standard LIGHT_REACH-based 50 still
+// read as visibly more saturated/darker than the other four ramps' 50 -- inconsistent
+// across the palette. Override just their light side (50-400):
+//   - 400 becomes the old (pre-override) 300 -- discarding the standard 400, which sat
+//     too close to 500 to be useful once 300 moves up.
+//   - 50 is regenerated to match the other ramps' actual 50 lightness (averaged), at a
+//     low fixed chroma fraction, so all six ramps' 50 read as similarly pale.
+//   - 100/200/300 are re-interpolated between the new 50 and new 400 (eased, backloaded
+//     toward 400 -- see LIGHT_EASE) rather than reusing the standard formula's steps.
+const LIGHT_SIDE_OVERRIDE = ['indigo', 'midnight'];
+const OVERRIDE_L50_CHROMA_FRACTION = 0.12;
+const OVERRIDE_POSITIONS = { 100: 0.92, 200: 0.55, 300: 0.25 }; // 0 = at new 400, 1 = at new 50
+
+function applyLightSideOverride(scale, H, C500, siblingScales) {
+  const sibling50Stats = siblingScales.map((hex) => oklabToOklch(linearRgbToOklab(hexToLinearRgb(hex))));
+  const avgL50 = sibling50Stats.reduce((sum, [L]) => sum + L, 0) / sibling50Stats.length;
+
+  const new400Hex = scale[300]; // old 300 becomes the new 400
+  const [L400, C400] = oklabToOklch(linearRgbToOklab(hexToLinearRgb(new400Hex)));
+
+  const L50 = avgL50;
+  const C50 = C500 * OVERRIDE_L50_CHROMA_FRACTION;
+
+  scale[400] = new400Hex;
+  scale[50] = oklchToHex(L50, C50, H);
+  for (const [step, frac] of Object.entries(OVERRIDE_POSITIONS)) {
+    const eased = Math.pow(frac, LIGHT_EASE);
+    const L = L400 + eased * (L50 - L400);
+    const C = C400 + eased * (C50 - C400);
+    scale[step] = oklchToHex(L, C, H);
+  }
+  return scale;
+}
+
 const result = {};
 for (const [name, hex] of Object.entries(bases)) {
   result[name] = generateScale(hex);
+}
+
+// Sibling 50s used as the "match this paleness" reference for the override above -- the
+// four ramps that don't need the override, read from what was just generated for them.
+const sibling50s = Object.entries(result)
+  .filter(([name]) => !LIGHT_SIDE_OVERRIDE.includes(name))
+  .map(([, scale]) => scale[50]);
+
+for (const name of LIGHT_SIDE_OVERRIDE) {
+  const [, C500, H] = oklabToOklch(linearRgbToOklab(hexToLinearRgb(bases[name])));
+  result[name] = applyLightSideOverride(result[name], H, C500, sibling50s);
 }
 
 writeFileSync(new URL('./generated-color-scales.json', import.meta.url), JSON.stringify(result, null, 2) + '\n');

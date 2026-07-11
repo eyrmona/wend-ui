@@ -17,8 +17,12 @@
     },
     "action": {
       "primary": { "value": "{color.citron.500}" },
-      "primary-hover": { "value": "{color.lilac.500}" },
+      "primary-hover": { "value": "{color.citron.600}" },
       "secondary": { "value": "{color.lilac.500}" }
+    },
+    "feedback": {
+      "success": { "value": "{color.green.500}" },
+      "danger": { "value": "{color.red.500}" }
     }
   }
 }

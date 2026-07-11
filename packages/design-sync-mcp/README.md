@@ -23,10 +23,19 @@ There's no dedicated push tool or plugin — tokens and components are pushed in
 
 Tokens push into **two** Figma variable collections, not one flat collection — mirroring the project's own token tiers (`packages/tokens/tokens/global/**` and `semantic/**` + `component/**`, the latter folded into "semantic" on the Figma side):
 
-- **`global`** — the primitive scale (`color-gray-*`, `color-blue-*`, `radius-*`, `spacing-*`, `font-*`). Single mode (`Value`) — primitives don't change with theme, so there's no Light/Dark split here.
-- **`semantic`** — everything else: `color-text-*`/`color-surface-*`/`color-border-*`/`color-action-*`/`color-feedback-*` and the component-tier `button-*` tokens. Has **Light** and **Dark** modes. Each variable's value is a `VARIABLE_ALIAS` pointing at the `global` collection (or, for `button-*`, at another `semantic` variable) rather than a resolved literal — matching how the source JSON itself references tokens (e.g. `button.background.primary` → `{color.action.primary}` → `{color.blue.500}`). This means changing a global primitive in Figma propagates to every semantic/component token that references it, the same as the build pipeline.
+- **`global`** — the primitive scale (`linen-*`/`mist-*`/`citron-*`/`lilac-*`/`indigo-*`/`midnight-*` ramps, plus `radius-*`, `spacing-*`, `font-*`). Single mode (`Value`) — primitives don't change with theme, so there's no Light/Dark split here.
+- **`semantic`** — everything else: `color-text-*`/`color-surface-*`/`color-border-*`/`color-action-*`/`color-feedback-*` and the component-tier `button-*` tokens. Has **Light** and **Dark** modes. Each variable's value is a `VARIABLE_ALIAS` pointing at the `global` collection (or, for `button-*`, at another `semantic` variable) rather than a resolved literal — matching how the source JSON itself references tokens (e.g. `button.background.primary` → `{color.action.primary}` → `{color.midnight.500}`). This means changing a global primitive in Figma propagates to every semantic/component token that references it, the same as the build pipeline.
 
-When reconciling `diff_tokens` output against this structure, resolve each Figma variable's alias chain down to a literal value before comparing — the diff tool works on flat resolved values, and aliasing is purely a Figma-side authoring convenience.
+When reconciling `diff_tokens` output against this structure, resolve each Figma variable's alias chain down to a literal value before comparing — the diff tool works on flat resolved values, and aliasing is purely a Figma-side authoring convenience. **Use [`figma-scripts/fetch-current-state.js`](figma-scripts/fetch-current-state.js) for this** (see below) rather than writing the resolver by hand — a hand-rolled version of it had a real bug (see next section) that produced false-positive drift.
+
+## Efficient syncing: `figma-sync-state.json` + `figma-scripts/`
+
+Every Figma-side push or check in a fresh session otherwise starts from zero: rediscover every collection/variable/node ID via a `use_figma` read, then hand-write the alias-resolution logic again. Two things here cut that out:
+
+- **[`figma-sync-state.json`](figma-sync-state.json)** — a checked-in map of `{ collectionId, modes, variables: { name: id } }` per collection, plus the canvas node IDs bound to button variants. Variable IDs are stable in Figma once created, so a `use_figma` push can reference a known ID directly instead of re-fetching it first. Regenerate the `collections` value with [`figma-scripts/dump-variable-map.js`](figma-scripts/dump-variable-map.js) whenever collections/variables change, and bump `lastVerified`.
+- **[`figma-scripts/fetch-current-state.js`](figma-scripts/fetch-current-state.js)** — the canonical, mode-correct resolver for fetching Figma's current variable state in the exact shape `diff_tokens` expects. Paste it verbatim into a `use_figma` call rather than re-deriving the resolution logic — see the comment at the top of that file for the specific bug this avoids repeating (nested aliases into another multi-mode variable resolving via the wrong mode).
+
+**Trust but verify**: `figma-sync-state.json` goes stale the moment someone renames or deletes a variable/node directly in Figma outside this workflow. Before relying on an ID that's more than a session or two old, spot-check a handful with `getVariableByIdAsync` (returns `undefined` if gone) rather than assuming the file is current — the same way you'd treat any cached snapshot of external state.
 
 ## Setup
 
