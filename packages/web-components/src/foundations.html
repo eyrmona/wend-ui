@@ -1,0 +1,205 @@
+<!doctype html>
+<html dir="ltr" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>wend-ui — Foundations</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Funnel+Sans:wght@300;400;500;600;700;800&display=swap"
+    />
+    <link rel="stylesheet" href="/build/wend-ui-web-components.css" />
+    <link rel="stylesheet" href="/global/docs.css" />
+    <script type="module" src="/build/wend-ui-web-components.esm.js"></script>
+    <script nomodule src="/build/wend-ui-web-components.js"></script>
+  </head>
+  <body>
+    <nav class="wend-nav">
+      <a class="wend-nav__brand" href="index.html">wend-ui</a>
+      <div class="wend-nav__links">
+        <a href="get-started.html">Get Started</a>
+        <a href="foundations.html" aria-current="page">Foundations</a>
+        <a href="components.html">Components</a>
+      </div>
+    </nav>
+
+    <div class="wend-page">
+      <div class="wend-section">
+        <h2>Color</h2>
+        <p style="margin: 0 0 var(--spacing-sm)">Color ramps (global/color.json)</p>
+        <div class="wend-ramp-grid">
+          <span></span>
+          <span class="wend-ramp-step-label">50</span>
+          <span class="wend-ramp-step-label">100</span>
+          <span class="wend-ramp-step-label">200</span>
+          <span class="wend-ramp-step-label">300</span>
+          <span class="wend-ramp-step-label">400</span>
+          <span class="wend-ramp-step-label">500</span>
+          <span class="wend-ramp-step-label">600</span>
+          <span class="wend-ramp-step-label">700</span>
+          <span class="wend-ramp-step-label">800</span>
+          <span class="wend-ramp-step-label">900</span>
+          <span class="wend-ramp-step-label">950</span>
+        </div>
+        <div id="ramp-rows"></div>
+
+        <div style="max-width: 360px; margin-top: var(--spacing-lg)">
+          <div class="wend-surface" style="padding: var(--spacing-md)">
+            <p style="margin: 0 0 var(--spacing-sm)">Card (color-surface-card)</p>
+            <div
+              style="
+                background-color: var(--color-surface-card-recessed);
+                border-radius: var(--radius-sm);
+                padding: var(--spacing-sm);
+              "
+            >
+              Recessed well (color-surface-card-recessed)
+            </div>
+          </div>
+
+          <div
+            style="
+              margin-top: var(--spacing-md);
+              background-color: var(--color-surface-canvas-recessed);
+              border-radius: var(--radius-sm);
+              padding: var(--spacing-sm);
+            "
+          >
+            Recessed well on the page itself (color-surface-canvas-recessed)
+          </div>
+        </div>
+      </div>
+
+      <div class="wend-section">
+        <h2>Spacing</h2>
+        <div class="wend-scale-row">
+          <span class="wend-scale-row__label">spacing-xs (4px)</span>
+          <div class="wend-scale-row__box" style="width: var(--spacing-xs); height: 24px"></div>
+        </div>
+        <div class="wend-scale-row">
+          <span class="wend-scale-row__label">spacing-sm (8px)</span>
+          <div class="wend-scale-row__box" style="width: var(--spacing-sm); height: 24px"></div>
+        </div>
+        <div class="wend-scale-row">
+          <span class="wend-scale-row__label">spacing-md (16px)</span>
+          <div class="wend-scale-row__box" style="width: var(--spacing-md); height: 24px"></div>
+        </div>
+        <div class="wend-scale-row">
+          <span class="wend-scale-row__label">spacing-lg (24px)</span>
+          <div class="wend-scale-row__box" style="width: var(--spacing-lg); height: 24px"></div>
+        </div>
+        <div class="wend-scale-row">
+          <span class="wend-scale-row__label">spacing-xl (32px)</span>
+          <div class="wend-scale-row__box" style="width: var(--spacing-xl); height: 24px"></div>
+        </div>
+        <div class="wend-scale-row">
+          <span class="wend-scale-row__label">spacing-2xl (48px)</span>
+          <div class="wend-scale-row__box" style="width: var(--spacing-2xl); height: 24px"></div>
+        </div>
+      </div>
+
+      <div class="wend-section">
+        <h2>Radius</h2>
+        <div class="wend-scale-row">
+          <span class="wend-scale-row__label">radius-sm (4px)</span>
+          <div class="wend-scale-row__box" style="width: 48px; height: 48px; border-radius: var(--radius-sm)"></div>
+        </div>
+        <div class="wend-scale-row">
+          <span class="wend-scale-row__label">radius-md (8px)</span>
+          <div class="wend-scale-row__box" style="width: 48px; height: 48px; border-radius: var(--radius-md)"></div>
+        </div>
+        <div class="wend-scale-row">
+          <span class="wend-scale-row__label">radius-lg (16px)</span>
+          <div class="wend-scale-row__box" style="width: 48px; height: 48px; border-radius: var(--radius-lg)"></div>
+        </div>
+        <div class="wend-scale-row">
+          <span class="wend-scale-row__label">radius-full (9999px)</span>
+          <div
+            class="wend-scale-row__box"
+            style="width: 48px; height: 48px; border-radius: var(--radius-full)"
+          ></div>
+        </div>
+      </div>
+
+      <div class="wend-section">
+        <h2>Typography</h2>
+        <p style="margin: 0 0 var(--spacing-md)">
+          Font family: <code class="wend-code" style="display: inline">'Funnel Sans', sans-serif</code>
+        </p>
+
+        <div class="wend-type-row">
+          <div class="wend-type-row__label">font-size-sm (14px)</div>
+          <div style="font-size: var(--font-size-sm)">The quick brown fox jumps over the lazy dog</div>
+        </div>
+        <div class="wend-type-row">
+          <div class="wend-type-row__label">font-size-md (16px)</div>
+          <div style="font-size: var(--font-size-md)">The quick brown fox jumps over the lazy dog</div>
+        </div>
+        <div class="wend-type-row">
+          <div class="wend-type-row__label">font-size-lg (20px)</div>
+          <div style="font-size: var(--font-size-lg)">The quick brown fox jumps over the lazy dog</div>
+        </div>
+        <div class="wend-type-row">
+          <div class="wend-type-row__label">font-size-xl (28px)</div>
+          <div style="font-size: var(--font-size-xl)">The quick brown fox jumps over the lazy dog</div>
+        </div>
+
+        <div class="wend-type-row">
+          <div class="wend-type-row__label">font-weight-regular (400)</div>
+          <div style="font-weight: var(--font-weight-regular); font-size: var(--font-size-md)">
+            The quick brown fox jumps over the lazy dog
+          </div>
+        </div>
+        <div class="wend-type-row">
+          <div class="wend-type-row__label">font-weight-medium (500)</div>
+          <div style="font-weight: var(--font-weight-medium); font-size: var(--font-size-md)">
+            The quick brown fox jumps over the lazy dog
+          </div>
+        </div>
+        <div class="wend-type-row">
+          <div class="wend-type-row__label">font-weight-bold (700)</div>
+          <div style="font-weight: var(--font-weight-bold); font-size: var(--font-size-md)">
+            The quick brown fox jumps over the lazy dog
+          </div>
+        </div>
+
+        <div class="wend-type-row">
+          <div class="wend-type-row__label">font-line-height-tight (1.2)</div>
+          <div style="line-height: var(--font-line-height-tight); font-size: var(--font-size-md); max-width: 320px">
+            The quick brown fox jumps over the lazy dog and keeps running past the fence line into the field beyond
+          </div>
+        </div>
+        <div class="wend-type-row">
+          <div class="wend-type-row__label">font-line-height-base (1.5)</div>
+          <div style="line-height: var(--font-line-height-base); font-size: var(--font-size-md); max-width: 320px">
+            The quick brown fox jumps over the lazy dog and keeps running past the fence line into the field beyond
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const ramps = ['linen', 'mist', 'citron', 'lilac', 'indigo', 'midnight'];
+      const steps = ['50', '100', '200', '300', '400', '500', '600', '700', '800', '900', '950'];
+      const rows = document.getElementById('ramp-rows');
+      for (const name of ramps) {
+        const row = document.createElement('div');
+        row.className = 'wend-ramp-grid';
+        const label = document.createElement('span');
+        label.textContent = name;
+        label.className = 'wend-ramp-name-label';
+        row.appendChild(label);
+        for (const step of steps) {
+          const swatch = document.createElement('div');
+          swatch.className = 'wend-ramp-swatch';
+          swatch.style.backgroundColor = `var(--color-${name}-${step})`;
+          if (step === '500') swatch.classList.add('wend-ramp-swatch--base');
+          row.appendChild(swatch);
+        }
+        rows.appendChild(row);
+      }
+    </script>
+  </body>
+</html>
