@@ -1,0 +1,75 @@
+<!doctype html>
+<html dir="ltr" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>wend-ui — Components</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Funnel+Sans:wght@300;400;500;600;700;800&display=swap"
+    />
+    <link rel="stylesheet" href="/build/wend-ui-web-components.css" />
+    <link rel="stylesheet" href="/global/docs.css" />
+    <script type="module" src="/build/wend-ui-web-components.esm.js"></script>
+    <script nomodule src="/build/wend-ui-web-components.js"></script>
+  </head>
+  <body>
+    <nav class="wend-nav">
+      <a class="wend-nav__brand" href="index.html">wend-ui</a>
+      <div class="wend-nav__links">
+        <a href="get-started.html">Get Started</a>
+        <a href="foundations.html">Foundations</a>
+        <a href="components.html" aria-current="page">Components</a>
+      </div>
+    </nav>
+
+    <div class="wend-page">
+      <div class="wend-section">
+        <h2>Button</h2>
+
+        <p style="margin: 0 0 var(--spacing-sm)">Examples</p>
+        <div class="wend-stack" style="margin-bottom: var(--spacing-lg)">
+          <wend-button variant="primary">Primary button</wend-button>
+          <wend-button variant="secondary">Secondary button</wend-button>
+          <wend-button variant="primary" disabled>Disabled button</wend-button>
+        </div>
+
+        <p style="margin: 0 0 var(--spacing-sm)">Usage</p>
+        <code class="wend-code" style="margin-bottom: var(--spacing-lg)"
+          >&lt;wend-button variant="primary"&gt;Label&lt;/wend-button&gt;</code
+        >
+
+        <p style="margin: 0 0 var(--spacing-sm)">Props</p>
+        <table class="wend-props-table">
+          <thead>
+            <tr>
+              <th>Property</th>
+              <th>Attribute</th>
+              <th>Description</th>
+              <th>Type</th>
+              <th>Default</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>disabled</code></td>
+              <td><code>disabled</code></td>
+              <td>Disables the button.</td>
+              <td><code>boolean</code></td>
+              <td><code>false</code></td>
+            </tr>
+            <tr>
+              <td><code>variant</code></td>
+              <td><code>variant</code></td>
+              <td>Visual style of the button.</td>
+              <td><code>"primary" | "secondary"</code></td>
+              <td><code>'primary'</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>
