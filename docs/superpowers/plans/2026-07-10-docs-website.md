@@ -207,18 +207,18 @@ with:
       type: 'www',
       serviceWorker: null,
       copy: [
-        { src: 'get-started.html' },
-        { src: 'foundations.html' },
-        { src: 'components.html' },
+        { src: '*.html' },
         { src: 'global/docs.css' }
       ]
     }
 ```
 
+**Correction found during implementation:** an earlier draft of this task specified four explicit `copy` entries (one named file per new page) instead of the `*.html` glob above. That was based on an untested assumption that Stencil's copy task silently skips a missing source file. Verified empirically (twice, independently) that Stencil v4.43.5 actually throws `ENOENT` and fails the build when a named `copy` source doesn't exist yet — which it doesn't, for `get-started.html`/`foundations.html`/`components.html`, until Tasks 2-4 create them. The glob is not just a workaround: it's also correct at the finished state, since `index.html` (rewritten as the cover page in Task 5) needs to be in the output alongside the other three pages, and the glob picks all of them up with no further `stencil.config.ts` changes needed in Tasks 2-5.
+
 - [ ] **Step 3: Verify the copy config builds without error**
 
 Run: `npm run build -w packages/web-components`
-Expected: build succeeds (the referenced `get-started.html`/`foundations.html`/`components.html` don't exist yet at this point, which is fine — Stencil's copy task does not error on a missing glob match, it just copies nothing for that entry). Confirm in the output: `copy finished (1 file)` (only `docs.css` exists yet) and confirm `packages/web-components/www/global/docs.css` exists:
+Expected: build succeeds. Confirm in the output: `copy finished (1 file)` (only `docs.css` exists yet, since `get-started.html`/`foundations.html`/`components.html` don't exist until later tasks and the glob simply doesn't match them yet) and confirm `packages/web-components/www/global/docs.css` exists:
 
 Run: `ls packages/web-components/www/global/docs.css`
 Expected: file exists
