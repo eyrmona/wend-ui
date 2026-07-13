@@ -1,0 +1,19 @@
+{
+  "name": "@wend-ui/manifest",
+  "version": "0.1.0",
+  "description": "Machine-readable manifest of a Wend UI release (tokens, components, skill version) consumed by the docs generator and the client-facing update-check MCP",
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/manifest.json",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "node --test test/",
+    "clean": "rimraf dist"
+  },
+  "devDependencies": {
+    "rimraf": "^5.0.5"
+  }
+}

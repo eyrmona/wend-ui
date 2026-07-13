@@ -149,5 +149,6 @@ packages/web-components/dist
 packages/web-components/www
 packages/web-components/loader
 packages/web-components/.stencil
+packages/manifest/dist
 packages/design-sync-mcp/dist
 packages/react/dist
