@@ -1,6 +1,6 @@
 {
   "name": "@wend-ui/web-components",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Framework-agnostic web components for the wend-ui design system, built with Stencil",
   "license": "MIT",
   "publishConfig": {
@@ -43,8 +43,8 @@
     "clean": "rimraf dist www loader .stencil"
   },
   "dependencies": {
-    "@wend-ui/styles": "^0.1.0",
-    "@wend-ui/tokens": "^0.1.0"
+    "@wend-ui/styles": "^0.2.0",
+    "@wend-ui/tokens": "^0.2.0"
   },
   "devDependencies": {
     "@stencil/core": "^4.20.0",

@@ -1,6 +1,6 @@
 {
   "name": "@wend-ui/react",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "React component wrappers for @wend-ui/web-components, generated via Stencil's React output target",
   "license": "MIT",
   "publishConfig": {
@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "@stencil/react-output-target": "^1.6.0",
-    "@wend-ui/web-components": "^0.1.0"
+    "@wend-ui/web-components": "^0.2.0"
   },
   "devDependencies": {
     "@types/react": "^18.3.3",
