@@ -17,6 +17,7 @@
     "dev:components": "npm run start -w packages/web-components",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
+    "test": "npm run test -w packages/manifest",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "changeset": "changeset",
