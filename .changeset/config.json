@@ -1,0 +1,13 @@
+{
+  "$schema": "https://unpkg.com/@changesets/config@3.0.0/schema.json",
+  "changelog": "@changesets/cli/changelog",
+  "commit": false,
+  "fixed": [
+    ["@wend-ui/tokens", "@wend-ui/styles", "@wend-ui/web-components", "@wend-ui/react", "@wend-ui/manifest"]
+  ],
+  "linked": [],
+  "access": "restricted",
+  "baseBranch": "main",
+  "updateInternalDependencies": "patch",
+  "ignore": ["@wend-ui/design-sync-mcp"]
+}
