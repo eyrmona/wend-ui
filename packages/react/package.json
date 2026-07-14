@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "description": "React component wrappers for @wend-ui/web-components, generated via Stencil's React output target",
   "license": "MIT",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "type": "module",
   "main": "dist/index.js",
   "module": "dist/index.js",
