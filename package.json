@@ -12,7 +12,7 @@
     "npm": ">=8"
   },
   "scripts": {
-    "build": "npm run build -w packages/tokens && npm run build -w packages/styles && npm run build -w packages/web-components && npm run build -w packages/react && npm run build -w packages/design-sync-mcp",
+    "build": "npm run build -w packages/tokens && npm run build -w packages/styles && npm run build -w packages/web-components && npm run build -w packages/react && npm run build -w packages/design-sync-mcp && npm run build -w packages/manifest",
     "clean": "npm run clean --workspaces --if-present",
     "dev:components": "npm run start -w packages/web-components",
     "lint": "eslint .",
